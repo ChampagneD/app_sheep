@@ -3,6 +3,21 @@
 function insert_spend(){
 	$pdo = get_pdo();
 
+	$flagToken = false;
+	$token = $_POST['token'];
+	if ( !empty($token) ) {
+		foreach (range(0, 5) as $v) {
+			if ( ($token == md5(date('Y-m-d h:i:00', time() - $v * 60) . SALT))) {
+				$flagToken = true;
+			}
+		}
+	}
+
+	if( $flagToken == false ){
+		header('Location: /add_spend'); // retour à la page d'accueil
+		exit;
+	}
+
 	if (empty($_POST['title'])) {
 
 		setFlashMessage("Veuillez rentrer un titre");

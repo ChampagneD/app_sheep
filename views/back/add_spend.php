@@ -7,6 +7,8 @@
 </script>
 <?php if( hasFlashMessage() ): ?> <p><?php echo getFlashMessage(); ?></p> <?php endif ; ?>
 <form action="/spend_added" method="post" class="w100 center">
+	
+	<input type="hidden" name="token" value="<?php echo md5( date('Y-m-d h:i:00')  . SALT ) ?>">
 
 	<p style="display: inline-block;">Title: <input type="text" name="title"></p>
 
